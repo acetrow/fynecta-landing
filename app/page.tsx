@@ -1,6 +1,8 @@
 import Script from "next/script";
 
 export default function Home() {
+  // Webflow-exported HTML body injected verbatim so Webflow's CSS/JS behave as expected.
+  // Keep this as close as possible to the Webflow export to preserve layout/spacing/animations.
   const bodyHtml = `
       <div class="page-wrapper">
     <div class="cookies">
@@ -402,7 +404,7 @@ export default function Home() {
         </div>
       </div>
     </section>
-    <section class="hero">
+    <section id="hero" class="hero">
       <div class="container">
         <div class="hero-wrap">
           <div class="hero-heading-wrap left">
@@ -450,7 +452,7 @@ export default function Home() {
           alt="" class="hero-dashboard"></div>
       <div class="hero-dashboard-cover"></div>
     </section>
-    <section class="brands">
+    <section id="brands" class="brands">
       <div class="container">
         <div data-w-id="7c4c3676-3a2c-31fd-6b07-1e7fbf773904" class="brands-wrap">
           <div class="brands-marquee">
@@ -486,7 +488,7 @@ export default function Home() {
         </div>
       </div>
     </section>
-    <section class="features-02">
+    <section id="features" class="features-02">
       <div class="container">
         <div class="features-02-wrap">
           <div class="section-header-wrap">
@@ -600,7 +602,7 @@ export default function Home() {
         srcset="https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/68c442732e93c6b2b6557969_Shadow%2002-p-500.webp 500w, https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/68c442732e93c6b2b6557969_Shadow%2002-p-800.webp 800w, https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/68c442732e93c6b2b6557969_Shadow%2002-p-1080.webp 1080w, https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/68c442732e93c6b2b6557969_Shadow%2002.webp 1162w"
         alt="Features Shadow" class="features-02-right-texture">
     </section>
-    <section class="why-us">
+    <section id="about" class="why-us">
       <div class="container">
         <div class="why-us-wrap">
           <div class="section-header-wrap flex">
@@ -677,7 +679,7 @@ export default function Home() {
       </div>
       <div class="shadow-wrap _02"></div>
     </section>
-    <section class="use-case">
+    <section id="use-case" class="use-case">
       <div class="container">
         <div class="use-case-wrap">
           <div class="use-case-header-wrap">
@@ -769,7 +771,7 @@ export default function Home() {
       </div>
       <div class="use-case-shadow"></div>
     </section>
-    <section class="trading">
+    <section id="trading" class="trading">
       <div class="container">
         <div class="trading-wrap">
           <div class="section-header-wrap">
@@ -814,7 +816,7 @@ export default function Home() {
         </div>
       </div>
     </section>
-    <section class="compare-section">
+    <section id="compare" class="compare-section">
       <div class="container">
         <div class="section-header-content is-compare">
           <div class="section-badge-wrap">
@@ -1049,7 +1051,7 @@ export default function Home() {
         </div>
       </div>
     </section>
-    <section class="integrate-section">
+    <section id="integrations" class="integrate-section">
       <div class="container">
         <div class="section-header-content">
           <div class="section-badge-wrap">
@@ -1140,7 +1142,7 @@ export default function Home() {
         </div>
       </div>
     </section>
-    <section class="testimonials">
+    <section id="testimonials" class="testimonials">
       <div class="container">
         <div class="testimonials-wrap">
           <div class="section-header-wrap">
@@ -1364,7 +1366,7 @@ export default function Home() {
       </div>
       <div class="testimonials-shadow"></div>
     </section>
-    <section data-wf--faq--variant="base-02" class="faq w-variant-20b86e86-8efe-ecd4-409b-836a5502163f">
+    <section id="faq" data-wf--faq--variant="base-02" class="faq w-variant-20b86e86-8efe-ecd4-409b-836a5502163f">
       <div class="container">
         <div class="faq-wrap">
           <div class="section-header-wrap">
@@ -1526,7 +1528,7 @@ export default function Home() {
       </div>
       <div class="shadow-wrap"></div>
     </section>
-    <section class="pricing-v2">
+    <section id="pricing" class="pricing-v2">
       <div class="container">
         <div class="pricing-v2-wrap">
           <div class="section-header-wrap">
@@ -1766,7 +1768,7 @@ export default function Home() {
         </div>
       </div>
     </section>
-    <section class="cta">
+    <section id="contact" class="cta">
       <div class="w-layout-blockcontainer container w-container">
         <div data-w-id="5276c6b9-29d4-aa6b-1e5c-b8a02f7098a1" class="cta-wrap">
           <div class="cta-main-wrap">
@@ -1909,6 +1911,7 @@ export default function Home() {
         </div>
       </div>
     </section>
+  </div>
   `;
 
   return (
@@ -1916,13 +1919,58 @@ export default function Home() {
       <main dangerouslySetInnerHTML={{ __html: bodyHtml }} />
 
       <Script
-        src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.js"
+        src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=68b9a3dc68643585de10435f"
+        strategy="afterInteractive"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossOrigin="anonymous"
+      />
+      <Script
+        src="https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/js/webflow.schunk.300bb1e9d1d59bcb.js"
         strategy="afterInteractive"
       />
       <Script
-        src="https://cdn.prod.website-files.com/.../webflow.js"
+        src="https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/js/webflow.1f84f7b5.1df7882c6f47fbf2.js"
         strategy="afterInteractive"
       />
+      <Script id="smooth-scroll" strategy="afterInteractive">
+        {`
+          (function() {
+            const sectionMap = {
+              "index.html": "hero",
+              "about.html": "about",
+              "features.html": "features",
+              "pricing.html": "pricing",
+              "blog.html": "testimonials",
+              "contact.html": "contact"
+            };
+
+            function scrollToId(id) {
+              const el = document.getElementById(id);
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            }
+
+            document.querySelectorAll('a[href]').forEach((anchor) => {
+              const href = anchor.getAttribute('href') || '';
+              if (href.startsWith('#')) {
+                const targetId = href.slice(1);
+                anchor.addEventListener('click', (e) => {
+                  if (document.getElementById(targetId)) {
+                    e.preventDefault();
+                    scrollToId(targetId);
+                  }
+                });
+              } else if (!href.startsWith('http') && sectionMap[href]) {
+                anchor.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  scrollToId(sectionMap[href]);
+                });
+              }
+            });
+          })();
+        `}
+      </Script>
     </>
   );
 }
