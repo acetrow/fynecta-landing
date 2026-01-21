@@ -44,6 +44,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content="Webflow" />
 
+        <Script
+          src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
+          strategy="beforeInteractive"
+        />
+        <Script id="webfont-load" strategy="beforeInteractive">
+          {`WebFont.load({ google: { families: ["Inter:regular,500,600,700", "Fira Code:regular,500,600,700"] } });`}
+        </Script>
+        <Script id="webflow-mod" strategy="beforeInteractive">
+          {`!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);`}
+        </Script>
+        <Script id="webflow-currency" strategy="beforeInteractive">
+          {`window.__WEBFLOW_CURRENCY_SETTINGS = { "currencyCode": "USD", "symbol": "$", "decimal": ".", "fractionDigits": 2, "group": ",", "template": "{{wf {\\"path\\":\\"symbol\\",\\"type\\":\\"PlainText\\"} }} {{wf {\\"path\\":\\"amount\\",\\"type\\":\\"CommercePrice\\"} }} {{wf {\\"path\\":\\"currencyCode\\",\\"type\\":\\"PlainText\\"} }}", "hideDecimalForWholeNumbers": false };`}
+        </Script>
+
         <link
           href="https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/css/xentro.webflow.shared.ec27366e5.css"
           rel="stylesheet"
@@ -61,21 +75,67 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           rel="apple-touch-icon"
         />
       </head>
-      <body>{children}</body>
+      <body suppressHydrationWarning>
+        {children}
 
-      <Script
-        src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
-        strategy="beforeInteractive"
-      />
-      <Script id="webfont-load" strategy="beforeInteractive">
-        {`WebFont.load({ google: { families: ["Inter:regular,500,600,700", "Fira Code:regular,500,600,700"] } });`}
-      </Script>
-      <Script id="webflow-mod" strategy="beforeInteractive">
-        {`!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);`}
-      </Script>
-      <Script id="webflow-currency" strategy="beforeInteractive">
-        {`window.__WEBFLOW_CURRENCY_SETTINGS = { "currencyCode": "USD", "symbol": "$", "decimal": ".", "fractionDigits": 2, "group": ",", "template": "{{wf {\\"path\\":\\"symbol\\",\\"type\\":\\"PlainText\\"} }} {{wf {\\"path\\":\\"amount\\",\\"type\\":\\"CommercePrice\\"} }} {{wf {\\"path\\":\\"currencyCode\\",\\"type\\":\\"PlainText\\"} }}", "hideDecimalForWholeNumbers": false };`}
-      </Script>
+        {/* Ensure internal navigation between Webflow-exported pages always works */}
+        <Script id="webflow-internal-links" strategy="afterInteractive">
+          {`
+            (function () {
+              var routeMap = {
+                "index.html": "/",
+                "about.html": "/about",
+                "blog.html": "/blog",
+                "career.html": "/career",
+                "checkout.html": "/checkout",
+                "coming-soon.html": "/coming-soon",
+                "contact.html": "/contact",
+                "features.html": "/features",
+                "integration.html": "/integration",
+                "pricing.html": "/pricing",
+                "401.html": "/401",
+                "404.html": "/404"
+              };
+
+              document.addEventListener(
+                "click",
+                function (event) {
+                  var a = event.target && event.target.closest
+                    ? event.target.closest("a[href]")
+                    : null;
+                  if (!a) return;
+
+                  var rawHref = a.getAttribute("href") || "";
+                  var lower = rawHref.toLowerCase();
+
+                  // Ignore external, mailto, tel, js, hash-only links.
+                  if (
+                    lower.startsWith("http://") ||
+                    lower.startsWith("https://") ||
+                    lower.startsWith("mailto:") ||
+                    lower.startsWith("tel:") ||
+                    lower.startsWith("javascript:") ||
+                    rawHref.startsWith("#")
+                  ) {
+                    return;
+                  }
+
+                  var target = rawHref;
+                  if (routeMap[rawHref]) {
+                    target = routeMap[rawHref];
+                  }
+
+                  if (target.startsWith("/")) {
+                    event.preventDefault();
+                    window.location.href = target;
+                  }
+                },
+                true
+              );
+            })();
+          `}
+        </Script>
+      </body>
     </html>
   );
 }
