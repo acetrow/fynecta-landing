@@ -1,0 +1,31 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_433_378660)">
+<rect width="100" height="100" rx="16" fill="url(#paint0_linear_433_378660)"/>
+<mask id="mask0_433_378660" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-45" y="-41" width="191" height="182">
+<line x1="15.486" y1="-41" x2="15.486" y2="140.524" stroke="white" stroke-width="2.30405"/>
+<line x1="50.1813" y1="-41" x2="50.1813" y2="140.524" stroke="white" stroke-width="2.30405"/>
+<line x1="84.8786" y1="-41" x2="84.8786" y2="140.524" stroke="white" stroke-width="2.30405"/>
+<line x1="-45" y1="9.13704" x2="145.072" y2="9.13704" stroke="white" stroke-width="2.30405"/>
+<line x1="-45" y1="44.8392" x2="145.072" y2="44.8392" stroke="white" stroke-width="2.30405"/>
+<line x1="-45" y1="80.5384" x2="145.072" y2="80.5384" stroke="white" stroke-width="2.30405"/>
+</mask>
+<g mask="url(#mask0_433_378660)">
+</g>
+<g clip-path="url(#clip1_433_378660)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M36 22C43.7319 22 50 28.268 50 36V22H64C71.7319 22 78 28.268 78 36C78 43.7319 71.7319 50 64 50C71.7319 50 78 56.2681 78 64C78 67.8392 76.4545 71.3175 73.9519 73.8468L73.8995 73.8995L73.8531 73.9457C71.3233 76.452 67.8424 78 64 78C60.1837 78 56.7241 76.473 54.1986 73.9967C54.1658 73.9645 54.1331 73.932 54.1005 73.8995C54.0698 73.8689 54.0393 73.8381 54.0089 73.8071C51.5294 71.2813 50 67.8192 50 64C50 71.7319 43.7319 78 36 78C28.268 78 22 71.7319 22 64V50H36C28.268 50 22 43.7319 22 36C22 28.268 28.268 22 36 22ZM47.2 36C47.2 42.1856 42.1856 47.2 36 47.2V24.8C42.1856 24.8 47.2 29.8144 47.2 36ZM75.2 64C75.2 57.8144 70.1856 52.8 64 52.8C57.8144 52.8 52.8 57.8144 52.8 64H75.2ZM24.8 52.8V64C24.8 70.1856 29.8144 75.2 36 75.2C42.1856 75.2 47.2 70.1856 47.2 64V52.8H24.8ZM52.8 47.2V24.8H64C70.1856 24.8 75.2 29.8144 75.2 36C75.2 42.1856 70.1856 47.2 64 47.2H52.8Z" fill="#7F43FF"/>
+</g>
+</g>
+<rect x="0.5" y="0.5" width="99" height="99" rx="15.5" stroke="#1B1B1B"/>
+<defs>
+<linearGradient id="paint0_linear_433_378660" x1="50" y1="100" x2="50" y2="-49.096" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-color="#001F0D"/>
+</linearGradient>
+<clipPath id="clip0_433_378660">
+<rect width="100" height="100" rx="16" fill="white"/>
+</clipPath>
+<clipPath id="clip1_433_378660">
+<rect width="56" height="56" fill="white" transform="translate(22 22)"/>
+</clipPath>
+</defs>
+</svg>
