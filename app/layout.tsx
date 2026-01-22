@@ -135,6 +135,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             })();
           `}
         </Script>
+
+        {/* Webflow runtime (animations/interactions) */}
+        <Script
+          src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=68b9a3dc68643585de10435f"
+          strategy="afterInteractive"
+          integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+          crossOrigin="anonymous"
+        />
+        <Script
+          src="https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/js/webflow.schunk.300bb1e9d1d59bcb.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/js/webflow.1f84f7b5.1df7882c6f47fbf2.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

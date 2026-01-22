@@ -1,0 +1,35 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_433_379062)">
+<rect width="100" height="100" rx="16" fill="url(#paint0_linear_433_379062)"/>
+<mask id="mask0_433_379062" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-45" y="-41" width="191" height="182">
+<line x1="15.486" y1="-41" x2="15.486" y2="140.524" stroke="white" stroke-width="2.30405"/>
+<line x1="50.1813" y1="-41" x2="50.1813" y2="140.524" stroke="white" stroke-width="2.30405"/>
+<line x1="84.8786" y1="-41" x2="84.8786" y2="140.524" stroke="white" stroke-width="2.30405"/>
+<line x1="-45" y1="9.13704" x2="145.072" y2="9.13704" stroke="white" stroke-width="2.30405"/>
+<line x1="-45" y1="44.8392" x2="145.072" y2="44.8392" stroke="white" stroke-width="2.30405"/>
+<line x1="-45" y1="80.5384" x2="145.072" y2="80.5384" stroke="white" stroke-width="2.30405"/>
+</mask>
+<g mask="url(#mask0_433_379062)">
+</g>
+<g clip-path="url(#clip1_433_379062)">
+<path d="M75.9292 51.9497H66.6412C58.528 51.9497 51.9512 58.5267 51.9512 66.6397V75.9277C64.756 74.9782 74.9796 64.7546 75.9292 51.9497Z" fill="#775732"/>
+<path d="M48.0503 75.9277V66.6397C48.0503 58.5267 41.4733 51.9497 33.3602 51.9497H24.0723C25.0217 64.7546 35.2454 74.9782 48.0503 75.9277Z" fill="#775732"/>
+<path d="M75.9292 48.0498C74.9796 35.2449 64.756 25.0212 51.9512 24.0718V33.3598C51.9512 41.4728 58.528 48.0498 66.6412 48.0498H75.9292Z" fill="#775732"/>
+<path d="M48.0503 24.0718C35.2454 25.0212 25.0217 35.2449 24.0723 48.0498H33.3602C41.4733 48.0498 48.0503 41.4728 48.0503 33.3598V24.0718Z" fill="#775732"/>
+<path d="M41.6582 49.9997C45.2625 48.1988 48.1998 45.2615 50.0006 41.6572C51.8015 45.2615 54.7387 48.1988 58.3431 49.9997C54.7387 51.8005 51.8015 54.7378 50.0006 58.3421C48.1998 54.7378 45.2625 51.8005 41.6582 49.9997Z" fill="#CA9352"/>
+</g>
+</g>
+<rect x="0.5" y="0.5" width="99" height="99" rx="15.5" stroke="#1B1B1B"/>
+<defs>
+<linearGradient id="paint0_linear_433_379062" x1="50" y1="100" x2="50" y2="-49.096" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-color="#001F0D"/>
+</linearGradient>
+<clipPath id="clip0_433_379062">
+<rect width="100" height="100" rx="16" fill="white"/>
+</clipPath>
+<clipPath id="clip1_433_379062">
+<rect width="52" height="52" fill="white" transform="translate(24 24)"/>
+</clipPath>
+</defs>
+</svg>
