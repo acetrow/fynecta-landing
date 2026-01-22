@@ -136,6 +136,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           `}
         </Script>
 
+        {/* Lottie animation library (fallback for Webflow Lottie) */}
+        <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"
+          strategy="afterInteractive"
+        />
+
         {/* Webflow runtime (animations/interactions) */}
         <Script
           src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=68b9a3dc68643585de10435f"

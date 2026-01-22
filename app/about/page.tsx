@@ -1,5 +1,6 @@
 import { extractBodyInnerHtml, loadOriginalHtml, normalizeWebflowBodyHtml } from "@/lib/webflow";
 import { WebflowReinit } from "@/app/components/webflow-reinit";
+import { LottieInit } from "@/app/components/lottie-init";
 
 export default async function AboutPage() {
   const fullHtml = await loadOriginalHtml("about.html");
@@ -8,6 +9,7 @@ export default async function AboutPage() {
     <>
       <main dangerouslySetInnerHTML={{ __html: normalizeWebflowBodyHtml(body) }} />
       <WebflowReinit />
+      <LottieInit />
     </>
   );
 }

@@ -57,6 +57,21 @@ export function WebflowReinit() {
         } catch (e) {
           // Ignore errors if IX2 init fails
         }
+
+        // Re-initialize Lottie animations
+        try {
+          const lottie = Webflow.require("lottie");
+          if (lottie?.init) {
+            lottie.init();
+          } else if (lottie?.createInstance) {
+            // Some versions use createInstance
+            document.querySelectorAll('[data-animation-type="lottie"]').forEach((el) => {
+              lottie.createInstance(el);
+            });
+          }
+        } catch (e) {
+          // Ignore errors if Lottie init fails
+        }
       }
 
       // Force images to reload/display after a short delay to let Webflow initialize
@@ -86,7 +101,41 @@ export function WebflowReinit() {
             htmlImg.style.display = "";
           }
         });
+
+        // Try to manually initialize Lottie animations if Webflow's failed
+        initManualLottie();
       }, 100);
+    };
+
+    // Manual Lottie initialization fallback using lottie-web if Webflow's doesn't work
+    const initManualLottie = () => {
+      const lottieLib = (window as any).lottie || (window as any).Lottie;
+      if (!lottieLib) return;
+
+      document.querySelectorAll('[data-animation-type="lottie"]').forEach((el) => {
+        const container = el as HTMLElement;
+        // Skip if already initialized
+        if (container.querySelector("svg") || container.querySelector("canvas")) return;
+
+        const dataSrc = container.getAttribute("data-src");
+        if (!dataSrc) return;
+
+        const loop = container.getAttribute("data-loop") === "1";
+        const autoplay = container.getAttribute("data-autoplay") === "1";
+        const renderer = (container.getAttribute("data-renderer") as "svg" | "canvas" | "html") || "svg";
+
+        try {
+          lottieLib.loadAnimation({
+            container,
+            path: dataSrc,
+            renderer,
+            loop,
+            autoplay,
+          });
+        } catch (e) {
+          console.warn("Failed to load Lottie animation:", dataSrc, e);
+        }
+      });
     };
 
     // Small delay to ensure DOM is ready after navigation
