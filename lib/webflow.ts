@@ -44,28 +44,38 @@ export function extractBodyInnerHtml(fullHtml: string): string {
 function rewriteAssetUrls(html: string): string {
   let out = html;
 
-  // Step 1: Handle direct CDN URLs (https://cdn.prod.website-files.com/...)
+  // Step 1: Handle src/href/data-src attributes with full CDN URLs
+  // Match with optional whitespace around the equals sign
+  out = out.replace(
+    /(src|href|data-src)\s*=\s*(["'])https:\/\/cdn\.prod\.website-files\.com\/[0-9a-f]{24}\//gi,
+    "$1=$2/images/",
+  );
+
+  // Step 2: Handle assets/cdn.prod.website-files.com/... paths in attributes
+  // These need to be converted to /images/ and the site ID folder removed
+  // Match with optional whitespace around the equals sign
+  out = out.replace(
+    /(src|href|data-src)\s*=\s*(["'])assets\/cdn\.prod\.website-files\.com\/[0-9a-f]{24}\//gi,
+    "$1=$2/images/",
+  );
+
+  // Step 3: Handle any remaining CDN URLs (standalone, not in attributes)
   out = out.replace(
     /https:\/\/cdn\.prod\.website-files\.com\/[0-9a-f]{24}\//gi,
     "/images/",
   );
+
+  // Step 4: Handle url() patterns with CDN URLs
   out = out.replace(
     /url\(\s*["']?https:\/\/cdn\.prod\.website-files\.com\/[0-9a-f]{24}\//gi,
     "url(/images/",
-  );
-
-  // Step 2: Handle assets/cdn.prod.website-files.com/... paths
-  // These need to be converted to /images/ and the site ID folder removed
-  out = out.replace(
-    /(src|href|data-src)=(["'])assets\/cdn\.prod\.website-files\.com\/[0-9a-f]{24}\//gi,
-    "$1=$2/images/",
   );
   out = out.replace(
     /url\(assets\/cdn\.prod\.website-files\.com\/[0-9a-f]{24}\//gi,
     "url(/images/",
   );
 
-  // Step 3: Handle simple assets/ paths (fallback)
+  // Step 5: Handle simple assets/ paths (fallback - paths that don't have cdn.prod.website-files.com)
   out = out
     .replaceAll('src="assets/', 'src="/images/')
     .replaceAll("src='assets/", "src='/images/")
@@ -75,19 +85,19 @@ function rewriteAssetUrls(html: string): string {
     .replaceAll("data-src='assets/", "data-src='/images/")
     .replaceAll("url(assets/", "url(/images/");
 
-  // Step 4: Clean up any remaining nested paths
+  // Step 6: Clean up any remaining nested paths
   out = out.replace(
     /\/images\/cdn\.prod\.website-files\.com\/[0-9a-f]{24}\//gi,
     "/images/",
   );
   out = out.replace(/\/images\/[0-9a-f]{24}\//gi, "/images/");
 
-  // Step 5: Remove srcset attributes (responsive image variants don't exist locally)
+  // Step 7: Remove srcset attributes (responsive image variants don't exist locally)
   // This prevents 404s for -p-500.webp, -p-1080.webp, etc.
   out = out.replace(/\s+srcset=["'][^"']*["']/gi, "");
   out = out.replace(/\s+srcset=["'][^"']*["']/gi, "");
 
-  // Step 6: Handle URL encoding for filenames with literal %20
+  // Step 8: Handle URL encoding for filenames with literal %20
   // Files in /public/images/ may have literal "%20" in their names.
   // If HTML already has "%2520", leave it (browser will decode to "%20").
   // If HTML has "%20", encode to "%2520" so browser decodes to "%20".
@@ -119,7 +129,7 @@ function rewriteAssetUrls(html: string): string {
     return match;
   });
 
-  // Step 7: Fix any paths that are missing /images/ prefix but look like image paths
+  // Step 9: Fix any paths that are missing /images/ prefix but look like image paths
   // This catches cases where paths might have been incorrectly processed
   // Only match if it's a Webflow-style filename (24-char hex ID + underscore + filename)
   out = out.replace(
