@@ -197,12 +197,16 @@ function rewriteHtmlLinks(html: string): string {
     }
     if (href.startsWith("#")) return m;
 
+    // Handle relative paths like "../index.html", "../../coming-soon.html"
+    // Strip all "../" prefixes
+    let cleanHref = href.replace(/^(\.\.\/)+/i, "");
+    
     // Collection / inner pages like:
     // - "blog/design-clarity-starts-with-empathy.html"  -> "/blog/design-clarity-starts-with-empathy"
     // - "integration/logsync.html"                      -> "/integration/logsync"
     // - "product/starter.html"                          -> "/product/starter"
     // - "utility-pages/style-guide.html"                -> "/utility-pages/style-guide"
-    const collectionMatch = href.match(
+    const collectionMatch = cleanHref.match(
       /^(blog|integration|product|utility-pages)\/([a-z0-9-]+)\.html$/i,
     );
     if (collectionMatch) {
@@ -211,14 +215,22 @@ function rewriteHtmlLinks(html: string): string {
       return `href=${quote}/${section}/${slug}${quote}`;
     }
 
-    if (ROUTE_MAP[href]) {
-      return `href=${quote}${ROUTE_MAP[href]}${quote}`;
+    // Check ROUTE_MAP first (for exact matches)
+    if (ROUTE_MAP[cleanHref]) {
+      return `href=${quote}${ROUTE_MAP[cleanHref]}${quote}`;
     }
-    const htmlFile = href.match(/^([a-z0-9-]+)\.html$/i);
+    
+    // Handle .html files - remove extension and convert to route
+    const htmlFile = cleanHref.match(/^([a-z0-9-]+)\.html$/i);
     if (htmlFile) {
       const name = htmlFile[1]!;
+      // index.html -> /
+      if (name === "index") {
+        return `href=${quote}/${quote}`;
+      }
       return `href=${quote}/${name}${quote}`;
     }
+    
     return m;
   });
 }
