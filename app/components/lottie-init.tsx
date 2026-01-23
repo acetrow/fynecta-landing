@@ -53,7 +53,7 @@ export function LottieInit() {
             container,
             path: dataSrc,
             renderer,
-            loop: loop || true, // Force loop for better visibility
+            loop: loop || false, // Force loop for better visibility
             autoplay: true, // Force autoplay to ensure it shows
           });
 
