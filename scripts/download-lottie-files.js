@@ -10,6 +10,16 @@ const files = [
   {
     url: 'https://cdn.prod.website-files.com/68a2151a000cb3b5c6f9da7f/68b20daf7a52aa026bdd184b_Menu%2002.json',
     filename: '68b20daf7a52aa026bdd184b_Menu%2002.json'
+  },
+  {
+    // Performance section Lottie: "Lightning Execution"
+    url: 'https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/68c593f236ebcb5a1135d07b_data.json',
+    filename: '68c593f236ebcb5a1135d07b_data.json'
+  },
+  {
+    // Performance section Lottie: "Shortcut Commands"
+    url: 'https://cdn.prod.website-files.com/68b9a3dc68643585de10435f/68c5ba31cc1b4c2b6fe5d61d_Lottie.json',
+    filename: '68c5ba31cc1b4c2b6fe5d61d_Lottie.json'
   }
 ];
 

@@ -102,6 +102,13 @@ export function WebflowReinit() {
           }
         });
 
+        // Ensure html element has w-mod-ix class to prevent CSS-based hiding
+        // Webflow CSS rules like `html.w-mod-js:not(.w-mod-ix) [data-w-id]` hide elements
+        // when this class is missing
+        if (document.documentElement && !document.documentElement.classList.contains("w-mod-ix")) {
+          document.documentElement.classList.add("w-mod-ix");
+        }
+
         // As a safety net: if Webflow IX2 doesn't successfully run,
         // un-hide elements that are stuck with inline opacity/blur transforms
         // from their initial interaction state. This is what typically hides
@@ -109,22 +116,26 @@ export function WebflowReinit() {
         const ixTargets = document.querySelectorAll<HTMLElement>("[data-w-id]");
         ixTargets.forEach((el) => {
           const { style } = el;
+          const computedStyle = window.getComputedStyle(el);
 
           // Many Webflow interactions start elements with opacity 0.
-          // If they're still at 0 after re-init, make them visible.
-          if (style.opacity === "0") {
+          // Check both inline styles and computed styles (for CSS-based hiding).
+          const opacity = style.opacity || computedStyle.opacity;
+          if (opacity === "0" || opacity === "0px") {
             style.opacity = "1";
           }
 
-          // Remove heavy blur left from initial state.
-          if (style.filter && style.filter.includes("blur")) {
+          // Remove heavy blur left from initial state (check both inline and computed).
+          const filter = style.filter || computedStyle.filter;
+          if (filter && filter.includes("blur")) {
             style.filter = "none";
           }
 
           // Reset common off-screen transform used by scroll/fade-up animations.
+          const transform = style.transform || computedStyle.transform;
           if (
-            style.transform &&
-            style.transform.includes("translate3d(0, 35px, 0)")
+            transform &&
+            transform.includes("translate3d(0, 35px, 0)")
           ) {
             style.transform = "none";
           }
