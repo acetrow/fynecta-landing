@@ -74,7 +74,7 @@ export function WebflowReinit() {
         }
       }
 
-      // Force images to reload/display after a short delay to let Webflow initialize
+      // Force images and interaction-tied elements to display after a short delay
       setTimeout(() => {
         // Trigger a resize event to force Webflow to recalculate layouts
         if (window.dispatchEvent) {
@@ -99,6 +99,34 @@ export function WebflowReinit() {
           if (htmlImg.style.opacity === "0" || htmlImg.style.display === "none") {
             htmlImg.style.opacity = "";
             htmlImg.style.display = "";
+          }
+        });
+
+        // As a safety net: if Webflow IX2 doesn't successfully run,
+        // un-hide elements that are stuck with inline opacity/blur transforms
+        // from their initial interaction state. This is what typically hides
+        // sections like "Our Vision" / "Our Mission" on the About page.
+        const ixTargets = document.querySelectorAll<HTMLElement>("[data-w-id]");
+        ixTargets.forEach((el) => {
+          const { style } = el;
+
+          // Many Webflow interactions start elements with opacity 0.
+          // If they're still at 0 after re-init, make them visible.
+          if (style.opacity === "0") {
+            style.opacity = "1";
+          }
+
+          // Remove heavy blur left from initial state.
+          if (style.filter && style.filter.includes("blur")) {
+            style.filter = "none";
+          }
+
+          // Reset common off-screen transform used by scroll/fade-up animations.
+          if (
+            style.transform &&
+            style.transform.includes("translate3d(0, 35px, 0)")
+          ) {
+            style.transform = "none";
           }
         });
 
