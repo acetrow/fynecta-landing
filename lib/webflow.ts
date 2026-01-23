@@ -1,5 +1,6 @@
-import { readFile } from "node:fs/promises";
+import { readFile, access } from "node:fs/promises";
 import path from "node:path";
+import { existsSync } from "node:fs";
 
 const ROUTE_MAP: Record<string, string> = {
   "index.html": "/",
@@ -31,8 +32,37 @@ export const WEBFLOW_ALLOWED_SLUGS = [
 export type WebflowSlug = (typeof WEBFLOW_ALLOWED_SLUGS)[number];
 
 export async function loadOriginalHtml(filename: string): Promise<string> {
-  const filePath = path.join(process.cwd(), "original-html", filename);
-  return await readFile(filePath, "utf8");
+  const filePath = path.resolve(process.cwd(), "original-html", filename);
+  
+  // Check if file exists before trying to read
+  if (!existsSync(filePath)) {
+    // Try alternative path resolution
+    const altPath = path.join(process.cwd(), "original-html", filename);
+    if (existsSync(altPath)) {
+      return await readFile(altPath, "utf8");
+    }
+    
+    throw new Error(
+      `File not found: ${filePath}\n` +
+        `Alternative path tried: ${altPath}\n` +
+        `Looking for: original-html/${filename}\n` +
+        `Current working directory: ${process.cwd()}\n` +
+        `File path resolved: ${filePath}`
+    );
+  }
+  
+  try {
+    return await readFile(filePath, "utf8");
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") {
+      throw new Error(
+        `File not found: ${filePath}\n` +
+          `Looking for: original-html/${filename}\n` +
+          `Current working directory: ${process.cwd()}`
+      );
+    }
+    throw error;
+  }
 }
 
 export function extractBodyInnerHtml(fullHtml: string): string {
@@ -166,6 +196,21 @@ function rewriteHtmlLinks(html: string): string {
       return m;
     }
     if (href.startsWith("#")) return m;
+
+    // Collection / inner pages like:
+    // - "blog/design-clarity-starts-with-empathy.html"  -> "/blog/design-clarity-starts-with-empathy"
+    // - "integration/logsync.html"                      -> "/integration/logsync"
+    // - "product/starter.html"                          -> "/product/starter"
+    // - "utility-pages/style-guide.html"                -> "/utility-pages/style-guide"
+    const collectionMatch = href.match(
+      /^(blog|integration|product|utility-pages)\/([a-z0-9-]+)\.html$/i,
+    );
+    if (collectionMatch) {
+      const section = collectionMatch[1]!;
+      const slug = collectionMatch[2]!;
+      return `href=${quote}/${section}/${slug}${quote}`;
+    }
+
     if (ROUTE_MAP[href]) {
       return `href=${quote}${ROUTE_MAP[href]}${quote}`;
     }

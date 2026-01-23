@@ -1,4 +1,6 @@
 import Script from "next/script";
+import { WebflowReinit } from "@/app/components/webflow-reinit";
+import { LottieInit } from "@/app/components/lottie-init";
 
 export default function Home() {
   // Webflow-exported HTML body injected verbatim so Webflow's CSS/JS behave as expected.
@@ -1917,6 +1919,8 @@ export default function Home() {
   return (
     <>
       <main dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+      <WebflowReinit />
+      <LottieInit />
 
       <Script
         src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=68b9a3dc68643585de10435f"

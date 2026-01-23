@@ -47,6 +47,15 @@ export function WebflowReinit() {
         }
       }
 
+      // Prevent form submissions that would trigger CSRF errors
+      // Webflow forms won't work without Webflow's backend anyway
+      document.querySelectorAll("form").forEach((form) => {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          console.log("Form submission prevented (Webflow forms require backend)");
+        });
+      });
+
       // Re-initialize IX2 (interactions)
       if (Webflow.require) {
         try {
